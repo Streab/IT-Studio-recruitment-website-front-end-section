@@ -42,7 +42,7 @@
           <input type="text" id="content" v-model="form.content" placeholder="加入理由(选填)" maxlength="200">
         </div>
         <div class="form-group">
-          <input type="text" id="qq" v-model="form.qq" placeholder="QQ号(选填)：" pattern="[0-9]*" title="请输入正确的QQ号">
+          <input type="text" id="qq" v-model="form.qq" required placeholder="QQ号(必填)：" pattern="[0-9]*" title="请输入正确的QQ号">
         </div>
 
         <div class="form-actions">
@@ -159,9 +159,9 @@ export default {
         return false;
       }
 
-      // 验证QQ号（选填）
-      if (this.form.qq && !/^\d+$/.test(this.form.qq)) {
-        alert('请输入正确的QQ号（必须为数字）');
+      // 验证QQ号（必填）
+      if (!this.form.qq || !/^\d{6,13}$/.test(this.form.qq)) {
+        alert('请输入正确的QQ号');
         return false;
       }
 
@@ -169,7 +169,7 @@ export default {
     },
     startCodeCountdown() {
       this.isCodeButtonDisabled = true;
-      this.countdown = 60;
+      this.countdown = 120;
       const timer = setInterval(() => {
         this.countdown--;
         this.codeButtonText = `${this.countdown}秒后重试`;
